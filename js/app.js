@@ -32,6 +32,8 @@ function buildNav(section) {
     let section_title = section_content.querySelector('h2').textContent;
     let list_item = document.createElement('li');
     list_item.innerHTML = `<a href=#${section.id}>${section_title}</a>`;
+
+    // list_item.classList.add("menu__link")
     navbar_list.appendChild(list_item);
   }
 }
@@ -49,11 +51,24 @@ function addActive (section) {
   })
 }
 
-// Scroll to anchor ID using scrollTO event
-
-
-
 for (let section of sections) {
-  buildNav(section);
-  addActive(section);
+  buildNav(section); // Build menu
+  addActive(section); // Set sections as active
 }
+
+// Scroll to anchor ID using scrollTO event
+let navbar_items = document.querySelectorAll("#navbar__list a");
+
+for (let navItem of navbar_items) {
+  navItem.addEventListener("click", smoothScroll)
+}
+
+function smoothScroll (ev) {
+  ev.preventDefault();
+  const target = ev.currentTarget.getAttribute("href");
+  window.scrollTo({
+    top: document.querySelector(target).offsetTop,
+    behavior: "smooth"
+  })
+}
+
