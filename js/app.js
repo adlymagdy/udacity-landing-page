@@ -12,6 +12,7 @@ let navbarToggler = document.querySelector(".navbar-toggler");
  * Start Helper Functions
  *
  */
+
 function isInViewport(el) { // returns true if element is in viewport false otherwise. Courtesy of https://vanillajstoolkit.com/helpers/isinviewport/
   const rect = el.getBoundingClientRect();
   return (
