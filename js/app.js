@@ -53,8 +53,8 @@ function hideNavbarOnScroll () { // Hides navbarMenu if user is 300 px from the 
 function buildNav(section) {
   if (section.id) {
     let section_content = section.querySelector(".landing__container");
-    let section_title = section_content.querySelector('h2').textContent;
-    let list_item = document.createElement('li');
+    let section_title = section_content.querySelector("h2").textContent;
+    let list_item = document.createElement("li");
     list_item.innerHTML = `<a href=#${section.id}>${section_title}</a>`;
 
     // list_item.classList.add("menu__link")
@@ -65,7 +65,7 @@ function buildNav(section) {
 
 // Add class 'active' to section when near top of viewport
 function addActive (section) {
-  document.addEventListener('scroll', function () {
+  document.addEventListener("scroll", function () {
     if(isInViewport(section)) {
       section.classList.add("your-active-class")
     } else {
