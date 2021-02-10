@@ -4,7 +4,7 @@
  */
 let navbar_list = document.querySelector("#navbar__list");
 let sections = document.querySelectorAll("main > section");
-let navbarMenu = document.querySelector(".navbar__menu ul");
+let navbarMenu = document.querySelector(".navbar__menu");
 let navbarToggler = document.querySelector(".navbar-toggler");
 
 /**
@@ -12,7 +12,7 @@ let navbarToggler = document.querySelector(".navbar-toggler");
  * Start Helper Functions
  *
  */
-function isInViewport(el) {
+function isInViewport(el) { // returns true if element is in viewport false otherwise. Courtesy of https://vanillajstoolkit.com/helpers/isinviewport/
   const rect = el.getBoundingClientRect();
   return (
     rect.top >= 0 &&
@@ -22,17 +22,26 @@ function isInViewport(el) {
   );
 }
 
-function navbarTogglerClick() { // Displays navbarMenu when the menu button is clicked on smaller screens
+function navbarTogglerClick() { // Displays navbar_list when the menu button is clicked on smaller screens
   navbarToggler.classList.toggle("open-navbar-toggler");
-  navbarMenu.classList.toggle("open");
+  navbar_list.classList.toggle("open");
 }
 
 function navbarLinkClick (ev) {
   smoothScroll(ev); // Calls the smoothScroll function
-  if(navbarMenu.classList.contains("open")) { // Closes navbarMenu in smaller screens
+  if(navbar_list.classList.contains("open")) { // Closes navbar_list in smaller screens
     navbarToggler.click();
   }
 }
+
+function hideNavbarOnScroll () { // Hides navbarMenu if user is 300 px from the top of the page
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    navbarMenu.style.top = "-80px";
+  } else {
+    navbarMenu.style.top = "0";
+  }
+}
+
 
 /**
  * End Helper Functions
@@ -55,7 +64,6 @@ function buildNav(section) {
 
 
 // Add class 'active' to section when near top of viewport
-
 function addActive (section) {
   document.addEventListener('scroll', function () {
     if(isInViewport(section)) {
@@ -66,6 +74,7 @@ function addActive (section) {
   })
 }
 
+// loops through all sections and call the functions on them
 for (let section of sections) {
   buildNav(section); // Build menu
   addActive(section); // Set sections as active
@@ -76,7 +85,7 @@ const navbar_items = document.querySelectorAll("#navbar__list a");
 for (let navItem of navbar_items) {
   navItem.addEventListener("click", navbarLinkClick)
 }
-
+// Enables smooth scrolling when user click on a link
 function smoothScroll (ev) {
   ev.preventDefault();
   const target = ev.currentTarget.getAttribute("href");
@@ -97,3 +106,6 @@ function smoothScroll (ev) {
 
 // Scroll to section on link click
 navbarToggler.addEventListener("click", navbarTogglerClick);
+
+// Hide navbarMenu when scrolling
+window.onscroll = function() {hideNavbarOnScroll()};
