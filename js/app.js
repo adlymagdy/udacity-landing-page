@@ -4,6 +4,8 @@
  */
 let navbar_list = document.querySelector("#navbar__list");
 let sections = document.querySelectorAll("main > section");
+let navbarMenu = document.querySelector(".navbar__menu ul");
+let navbarToggler = document.querySelector(".navbar-toggler");
 
 /**
  * End Global Variables
@@ -19,6 +21,19 @@ function isInViewport(el) {
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
+
+function navbarTogglerClick() { // Displays navbarMenu when the menu button is clicked on smaller screens
+  navbarToggler.classList.toggle("open-navbar-toggler");
+  navbarMenu.classList.toggle("open");
+}
+
+function navbarLinkClick (ev) {
+  smoothScroll(ev); // Calls the smoothScroll function
+  if(navbarMenu.classList.contains("open")) { // Closes navbarMenu in smaller screens
+    navbarToggler.click();
+  }
+}
+
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -57,10 +72,9 @@ for (let section of sections) {
 }
 
 // Scroll to anchor ID using scrollTO event
-let navbar_items = document.querySelectorAll("#navbar__list a");
-
+const navbar_items = document.querySelectorAll("#navbar__list a");
 for (let navItem of navbar_items) {
-  navItem.addEventListener("click", smoothScroll)
+  navItem.addEventListener("click", navbarLinkClick)
 }
 
 function smoothScroll (ev) {
@@ -72,3 +86,14 @@ function smoothScroll (ev) {
   })
 }
 
+
+
+/**
+ * End Main Functions
+ * Begin Events
+ *
+ */
+
+
+// Scroll to section on link click
+navbarToggler.addEventListener("click", navbarTogglerClick);
