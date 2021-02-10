@@ -1,6 +1,6 @@
 # udacity-landing-page
 
-## First assessment from  Web Development Professional Nanodegree Program
+## First project from  Web Development Professional Nanodegree Program
 
 **Features of the webpage**:
 - Build a navigation menu dynamically
